@@ -73,9 +73,9 @@ emprot build --map MAP.mrc \
 - Each PDB/mmCIF file TX.pdb should contain **only** 1 chain.
 - If you launch > 1 modeling jobs, the output directory **MUST** be set differently.
 
-The output model (named **output.cif**) will be saved in the specified output directory. Besides the final model, we also provide the ** *de novo* ** model named **output_denovo.cif** and the **fitted** model named **output_fitted.cif**.
+The output model (named **output.cif**) will be saved in the specified output directory. Besides the final model, we also provide the *<b>de novo</b>* model named **output_denovo.cif** and the **fitted** model named **output_fitted.cif**.
 
-Check the command usage any time you forget how to run EMProt
+**Check the command usage any time you forget how to run EMProt**
 ```
 emprot build --help
 ```
