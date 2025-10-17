@@ -12,11 +12,11 @@ We provide a demo case on the Google Colab for a quick trial, check it at www.co
 **GPU**: A GPU with >10 GB memory is required, advanced GPU like A100 is recommended.
 
 ## Installation
-**0. Install conda**
+#### 0. Install conda
 
 We use conda to manage the required packages, if it is not installed, please refer to https://docs.anaconda.net.cn/miniconda/install/ for installation.
 
-**1. Download EMProt**
+#### 1. Download EMProt
 
 Download EMProt via github
 ```
@@ -31,26 +31,26 @@ tar -zxvf EMProt.tgz
 cd EMProt
 ```
 
-**2. Create conda environment**
+#### 2. Create conda environment
 ```
 conda env create -f environment.yml
 ```
 If conda fails, you could install the packages youself. Basically. you can first create an environment named `emprot` by `conda env create -n emprot python=3.10`, then install the packages listed in `environment.yml` using conda or pip.
 
-**3. Install EMProt**
+#### 3. Install EMProt
 ```
 conda activate emprot
 pip install -e .
 ```
 Please do include `-e` in the command. If this command fails to install emprot, remove the emprot env, create a new emprot env and try again.
 
-**4. Download the pretrained weights from Huanglab's website**
+#### 4. Download the pretrained weights from Huanglab's website
 ```
 wget http://huanglab.phys.hust.edu.cn/EMProt/weights.tgz
 tar -zxvf weights.tgz
 ```
 
-**5. Check if EMProt is installed successfully**
+#### 5. Check if EMProt is installed successfully
 ```
 emprot --version
 emprot build --help
