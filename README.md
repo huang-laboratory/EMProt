@@ -20,7 +20,7 @@ We use conda to manage the required packages, if it is not installed, please ref
 
 Download EMProt via github
 ```
-git clone https://github.com/huanglab/EMProt.git
+git clone https://github.com/huang-laboratory/EMProt.git
 cd EMProt
 ```
 
