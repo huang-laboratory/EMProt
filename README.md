@@ -119,18 +119,14 @@ phenix.real_space_refine 7UZE.mrc out_new/output.cif resolution=2.4
 This will typically take several minutes.
 
 ## Trouble shooting
-- **No module named "xxx"**
-This means package "xxx" is not successfully installed in your emprot conda environment, use `pip install xxx` or `conda install xxx` to install the missing packages.
+- **No module named "xxx"**: This means package "xxx" is not successfully installed in your emprot conda environment, use `pip install xxx` or `conda install xxx` to install the missing packages.
 
-- **emprot: command not found...**
-This means you are not in the emprot env, use `conda activate emprot` to activate emprot env.
+- **emprot: command not found...**: This means you are not in the emprot env, use `conda activate emprot` to activate emprot env.
 Also, this happens when you do not install emprot main program in the emprot env, use `pip install -e .` to install it.
 
-- **LLVMPY_AddSymbol, version `GLIBCXX_3.4.29`, `CXXABI`, ... , not found, OSError: Could not find/load shared object file**
-Too old CXX library version or CXX dynamic library is not found by emprot (this happens for some old operating systems), use `export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/:$LD_LIBRARY_PATH` (when you are in emprot env) to include the libstdc++.so The `$CONDA_PREFIX` is actually where your conda env path is, you can check it by `$ echo $CONDA_PREFIX`. An example path could be `/home/user/conda/envs/emprot`.
+- **LLVMPY_AddSymbol, version `GLIBCXX_3.4.29`, `CXXABI`, ... , not found, OSError: Could not find/load shared object file**: Too old CXX library version or CXX dynamic library is not found by emprot (this happens for some old operating systems), use `export LD_LIBRARY_PATH=$CONDA_PREFIX/lib/:$LD_LIBRARY_PATH` (when you are in emprot env) to include the libstdc++.so The `$CONDA_PREFIX` is actually where your conda env path is, you can check it by `$ echo $CONDA_PREFIX`. An example path could be `/home/user/conda/envs/emprot`.
 
-- **AssertionError: Egg-link /xxx/emprot.egg-link (to /xxx) does not match installed location of emprot (at /xxx)**
-Fail to install EMProt. Solution: remove the `emprot` conda env, create the `emprot` env and install EMProt again.
+- **AssertionError: Egg-link /xxx/emprot.egg-link (to /xxx) does not match installed location of emprot (at /xxx)**: Fail to install EMProt. Solution: remove the `emprot` conda env, create the `emprot` env and install EMProt again.
 
 
 ## Citation
