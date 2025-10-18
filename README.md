@@ -112,7 +112,7 @@ emprot build --map 8AVV.mrc --seq 8AVV.fa --chain 8AVV_A.pdb 8AVV_B.pdb --device
 ```
 
 #### Post refinement
-Although EMProt already shows a high backbone and side-chain match to the density map, it is recommended to use third-party programs to further refine the model-map fit and model geometries, e.g. using ** phenix.real_space_refine **
+Although EMProt already shows a high backbone and side-chain match to the density map, it is recommended to use third-party programs to further refine the model-map fit and model geometries, e.g. using **phenix.real_space_refine**
 ```
 phenix.real_space_refine 7UZE.mrc out_new/output.cif resolution=2.4
 ```
