@@ -4,7 +4,7 @@
 EMProt is a software for automatic protein modeling from cryo-EM density maps. Besides accurate *de novo* modeling, it can also integrate predicted (e.g. AlphaFold2/3, ESMFold) structures for improving overall completeness.
 
 ## Quick trial on Google Colab (Coming soon)
-We provide a demo case on the Google Colab for a quick trial, check it at www.coming-soom.com.
+We provide a demo case on the Google Colab for a quick trial, check it at www.coming-soon.com.
 
 ## Requirements
 **Platform**: Linux (Mainly tested on CentOS 7).
