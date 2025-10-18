@@ -1,0 +1,28 @@
+name: emprot
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.10.13
+  - numpy==1.26.2
+  - numba==0.59.1
+  - scipy==1.11.4
+  - tqdm==4.66.5
+  - biopython==1.84
+  - einops==0.8.0
+  - mrcfile==1.4.3
+  - pillow==10.0.1
+  - beartype==0.18.5
+  - jaxtyping==0.2.33
+  - cctbx-base==2023.11
+  - pip=23.3.1
+  - pip:
+    - setuptools==68.2.2
+    - ortools==9.4.1874
+    - pydssp==0.9.0
+    - pyhmmer==0.10.4
+    - timm==1.0.8
+    - https://download.pytorch.org/whl/cu118/torch-2.1.2%2Bcu118-cp310-cp310-linux_x86_64.whl
+    - https://download.pytorch.org/whl/cu118/torchvision-0.16.2%2Bcu118-cp310-cp310-linux_x86_64.whl
+    - https://download.pytorch.org/whl/cu118/torchaudio-2.1.2%2Bcu118-cp310-cp310-linux_x86_64.whl
