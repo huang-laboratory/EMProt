@@ -24,12 +24,14 @@ git clone https://github.com/huang-laboratory/EMProt.git
 cd EMProt
 ```
 
+<!--
 alternatively, you can also download it from Huanglab's website
 ```
 wget http://huanglab.phys.hust.edu.cn/EMProt/EMProt.tgz
 tar -zxvf EMProt.tgz
 cd EMProt
 ```
+-->
 
 #### 2. Create conda environment
 ```
@@ -46,6 +48,7 @@ Please do include `-e` in the command. If this command fails to install emprot, 
 
 #### 4. Download the pretrained weights from Huanglab's website
 ```
+cd emprot
 wget http://huanglab.phys.hust.edu.cn/EMProt/weights.tgz
 tar -zxvf weights.tgz
 ```
