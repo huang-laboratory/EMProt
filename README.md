@@ -3,8 +3,8 @@
 ## Overview
 EMProt is a software for automatic protein modeling from cryo-EM density maps. Besides accurate *de novo* modeling, it can also integrate predicted (e.g. AlphaFold2/3, ESMFold) structures for improving overall completeness.
 
-## Quick trial on Google Colab (Coming soon)
-We provide a demo case on the Google Colab for a quick trial, check it at www.coming-soom.com.
+## Quick trial on Google Colab
+We provide a demo case on the Google Colab for a quick trial, check it [here](https://colab.research.google.com/drive/1fNXGIvLCOjpb5Us-GdnR3Pib2vFZR6Gb?usp=sharing).
 
 ## Requirements
 **Platform**: Linux (Mainly tested on CentOS 7).
@@ -22,14 +22,20 @@ Download EMProt via github
 ```
 git clone https://github.com/huang-laboratory/EMProt.git
 cd EMProt
+# if you do not have git, download the zipped file
+# wget https://github.com/huang-laboratory/EMProt/archive/refs/heads/main.zip
+# unzip main.zip
+# cd EMProt-main
 ```
 
+<!--
 alternatively, you can also download it from Huanglab's website
 ```
 wget http://huanglab.phys.hust.edu.cn/EMProt/EMProt.tgz
 tar -zxvf EMProt.tgz
 cd EMProt
 ```
+-->
 
 #### 2. Create conda environment
 ```
@@ -41,13 +47,18 @@ If conda fails, you could install the packages youself. Basically. you can first
 ```
 conda activate emprot
 pip install -e .
+# for executable binaries
+chmod +x emprot/bin/*
 ```
 Please do include `-e` in the command. If this command fails to install emprot, remove the emprot env, create a new emprot env and try again.
 
-#### 4. Download the pretrained weights from Huanglab's website
+#### 4. Download the pretrained weights
 ```
-wget http://huanglab.phys.hust.edu.cn/EMProt/weights.tgz
+cd emprot
+http://huanglab.phys.hust.edu.cn/EMProt/pretrained_weights/weights.tgz
 tar -zxvf weights.tgz
+# remove the zipped file as needed
+# rm -f weights.tgz
 ```
 
 #### 5. Check if EMProt is installed successfully
@@ -73,7 +84,7 @@ emprot build --map MAP.mrc \
 - Each PDB/mmCIF file TX.pdb should contain **only** 1 chain.
 - If you launch > 1 modeling jobs, the output directory **MUST** be set differently.
 
-The output model (named **output.cif**) will be saved in the specified output directory. Besides the final model, we also provide the *<b>de novo</b>* model named **output_denovo.cif** and the **fitted** model named **output_fitted.cif**.
+The output model (named **output.cif**) will be saved in the specified output directory. Besides the final model, we also provide the *<b>de novo</b>* model named **output_denovo.cif** and the **fitted** model named **output_fit.cif**.
 
 **Check the command usage any time you forget how to run EMProt**
 ```
