@@ -46,11 +46,13 @@ pip install -e .
 ```
 Please do include `-e` in the command. If this command fails to install emprot, remove the emprot env, create a new emprot env and try again.
 
-#### 4. Download the pretrained weights from Huanglab's website
+#### 4. Download the pretrained weights
 ```
 cd emprot
-wget http://huanglab.phys.hust.edu.cn/EMProt/weights.tgz
+http://huanglab.phys.hust.edu.cn/EMProt/pretrained_weights/weights.tgz
 tar -zxvf weights.tgz
+# remove the zipped file as needed
+# rm -f weights.tgz
 ```
 
 #### 5. Check if EMProt is installed successfully
