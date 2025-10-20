@@ -47,6 +47,8 @@ If conda fails, you could install the packages youself. Basically. you can first
 ```
 conda activate emprot
 pip install -e .
+# for executable binaries
+chmod +x emprot/bin/*
 ```
 Please do include `-e` in the command. If this command fails to install emprot, remove the emprot env, create a new emprot env and try again.
 
