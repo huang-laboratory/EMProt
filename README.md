@@ -22,6 +22,8 @@ Download EMProt via github
 ```
 git clone https://github.com/huang-laboratory/EMProt.git
 cd EMProt
+# if you do not have git, download the zipped file
+# wget https://github.com/huang-laboratory/EMProt/archive/refs/heads/main.zip
 ```
 
 <!--
