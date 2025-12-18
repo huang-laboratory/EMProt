@@ -76,9 +76,9 @@ Running EMProt is very straight forward with one command like
 ```
 emprot build --map MAP.mrc \
     --output OUT \
-        --device GPUID \ # default is 0
-    [--seq SEQ.fa] \
-        [--chain T1.pdb T2.pdb T3.pdb ... ] # also supports mmcif
+    --device GPUID \ # default is 0
+   [--seq SEQ.fa] \
+   [--chain T1.pdb T2.pdb T3.pdb ... ] # also supports mmcif
 ```
 - Cryo-EM density map and output directory is **required**.
 - Sequence(s) and predicted models are **optional**.
