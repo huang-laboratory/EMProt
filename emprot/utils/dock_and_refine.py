@@ -69,14 +69,14 @@ def prepare_input(
 
             # run and record pipe out
             result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            all_pipe_out.extend( result.stdout.decode('utf-8').split('\n') )
+            all_pipe_out.extend( result.stdout.split('\n') )
 
             if result.returncode != 0:
                 print("# Error domasgx has run failed")
                 print("# Original stdout:")
                 print(result.stdout.strip())
                 print("# Original stderr:")
-                print(result.stderr.strip())
+                print(result.stderr.strip(), flush=True)
                 exit(1)
 
             # check exists
@@ -131,14 +131,14 @@ def postprocess_output(
 
         if result.returncode != 0:
             print("# Error renumpdbx has run failed")
-            writelines(log_dir, result.stderr.decode('utf-8').split('\n'))
+            writelines(log_dir, result.stderr.split('\n'))
             print("# Original stdout:")
             print(result.stdout.strip())
             print("# Original stderr:")
-            print(result.stderr.strip())
+            print(result.stderr.strip(), flush=True)
             exit(1)
         else:
-            writelines(log_dir, result.stdout.decode('utf-8').split('\n') + ["success"])
+            writelines(log_dir, result.stdout.split('\n') + ["success"])
 
     return check_exists(out_dir)
 
@@ -203,14 +203,14 @@ def run_dock_and_refine(
 
         if result.returncode != 0:
             print("# Error dockx has run failed")
-            writelines(log_dir, result.stderr.decode('utf-8').split('\n'))
+            writelines(log_dir, result.stderr.split('\n'))
             print("# Original stdout:")
             print(result.stdout.strip())
             print("# Original stderr:")
-            print(result.stderr.strip())
+            print(result.stderr.strip(), flush=True)
             exit(1)
         else:
-            writelines(log_dir, result.stdout.decode('utf-8').split('\n'))
+            writelines(log_dir, result.stdout.split('\n'))
 
 
         # postprocess of atoms
