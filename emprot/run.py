@@ -6,15 +6,45 @@ import sys
 import math
 import time
 import glob
+import stat
 import shutil
 import argparse
 import datetime
+import platform
+import subprocess
 import warnings
 warnings.filterwarnings("ignore")
 from emprot.utils.misc_utils import abspath, pjoin
 from emprot.io.fileio import copy_file
 
 def main(args):
+    # Access the programs
+    core_programs = ["getp", "domasgx", "dockx"]
+    compiled_programs = core_programs + ["NWalign", "TMalign", "USalign", "stride", "unidoc_frag"]
+    for prog in compiled_programs:
+        p = os.path.join(os.path.dirname(os.path.realpath(__file__)), "bin", prog)
+        if not os.path.exists(p):
+            print(f"# Program -> {prog} is not in 'bin/'")
+            print("# EMProt is not correctly installed")
+            sys.exit(1)
+        if not os.access(p, os.X_OK):
+            print(f"# Program -> {prog} do not have access to execute, try to add access to it")
+            try:
+                st = os.stat(p)
+                os.chmod(p, st.st_mode | stat.S_IXUSR)
+            except Exception as e:
+                print(
+                    f"# Cannot add executing access to program -> {p}\n"
+                    "# Please manually run:\n"
+                    "#   chmod +x /path/to/EMProt/bin/*"
+                )
+                sys.exit(1)
+            # check again
+            if not os.access(p, os.X_OK):
+                print(f"# Still not executable -> {p}, exit now")
+                sys.exit(1)
+
+
     time0 = datetime.datetime.utcnow()
     print("# Job start at {}".format(time0))
 

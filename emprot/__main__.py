@@ -2,6 +2,16 @@
 EMProt: automated modeling of proteins from cryo-EM maps
 """
 def main():
+    import sys
+    import time
+    import platform
+    # Check platform
+    if platform.system() != "Linux":
+        print("# WARN Your system is -> {}".format(platform.system()))
+        print("# WARN EMProt only support Linux systems (tested on CentOS 7)")
+        print("# WARN EMProt will still run, but at any time it will crash")
+        time.sleep(1)
+
     import argparse
     import warnings
     import emprot
