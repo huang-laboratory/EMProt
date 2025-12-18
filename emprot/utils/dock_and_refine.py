@@ -199,7 +199,7 @@ def run_dock_and_refine(
 
         if verbose:
             print(f"# Running command {cmd}")
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         if result.returncode != 0:
             print("# Error dockx has run failed")

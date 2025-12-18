@@ -141,6 +141,27 @@ Also, this happens when you do not install emprot main program in the emprot env
 
 - **AssertionError: Egg-link /xxx/emprot.egg-link (to /xxx) does not match installed location of emprot (at /xxx)**: Fail to install EMProt. Solution: remove the `emprot` conda env, create the `emprot` env and install EMProt again.
 
+We provide some static-compiled binaries (which are compiled under CentOS 7 and Intel CPU) in the EMProt suite, but it does not always fit other platforms, so the following errors may occur. When EMProt fails, either use a new compiled program(with dynamic libraries requirement) or compile it from source. 
+- **Error cannot convert ca probability map to points **: 
+    -  Use our newly compiled `getp` program, replace the /path/to/EMProt/emprot/bin/getp with /path/to/EMProt/emprot/recompiled/getp: 
+```
+cp /path/to/EMProt/emprot/bin/recompiled/getp /path/to/EMProt/emprot/bin/getp
+```
+    -  Or, compile `getp` from source: 
+```
+cd /path/to/EMProt/emprot/bin/srcs/getp
+make clean
+make
+cp getp /path/to/EMProt/emprot/bin/getp
+```
+
+- **Error dockx/domasgx run failed **: 
+    - Use our newly compiled `dockx` and `domasgx` program:
+```
+cp /path/to/EMProt/emprot/bin/recompiled/dockx  /path/to/EMProt/emprot/bin/dockx
+cp /path/to/EMProt/emprot/bin/recompiled/domasgx /path/to/EMProt/emprot/bin/domasgx
+```
+
 
 ## Citation
 Tao Li, et al. Accurate protein modeling from cryo-EM maps using deep learning and structure prediction. *In submission*. 2025

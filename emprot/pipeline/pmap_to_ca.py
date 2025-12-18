@@ -233,7 +233,7 @@ def main(args):
     )
 
     if not (result.returncode == 0):
-        print("# Cannot convert camap")
+        print("# Error cannot convert ca probability map to points")
         print("# Original stdout:")
         print(result.stdout.strip())
         print("# Original stderr:")
