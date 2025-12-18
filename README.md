@@ -157,9 +157,21 @@ cp getp /path/to/EMProt/emprot/bin/getp
 
 - **Error: dockx/domasgx run failed, segmentation fault ...**
 ```
-# Use our newly compiled `dockx` and `domasgx` program ( no static, no CPU specific instructions, gfortran 4.8.5 ):
-cp /path/to/EMProt/emprot/bin/recompiled/dockx  /path/to/EMProt/emprot/bin/dockx
+# For `domasgx`, use our newly compiled `domasgx` program ( no static, no CPU specific instructions, gfortran 4.8.5 ):
 cp /path/to/EMProt/emprot/bin/recompiled/domasgx /path/to/EMProt/emprot/bin/domasgx
+
+# For `dockx`, we provide two versions, one compiled using gfortran-4.8.5, and requires libgfortran.so.3 (for older machines like CentOS 7)
+# First, check libgfortran version required by the program
+ldd /path/to/EMProt/emprot/bin/recompiled/dockx_gfortran_so_*
+
+# If your machine has libgfortran.so.3 (libgfortran.so.5 not found)
+cp /path/to/EMProt/emprot/bin/recompiled/dockx_gfortran_so_3  /path/to/EMProt/emprot/bin/dockx
+
+# The other version, compiled using gfortran-8.5.0, and requires libgfortran.so.5 (for newer machines...)
+# If your machine has libgfortran.so.5 (libgfortran.so.3 not found)
+cp /path/to/EMProt/emprot/bin/recompiled/dockx_gfortran_so_5  /path/to/EMProt/emprot/bin/dockx
+
+# If you dont have both, see our guidance here: /path/to/EMProt/emprot/bin/recompiled/readme
 ```
 
 

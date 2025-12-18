@@ -1,0 +1,26 @@
+# Version
+# `dockx_gfortran_so_3` is compiled using gfortran 4.8.5, it requires libgfortran.so.3
+# `dockx_gfortran_so_5` is compiled using gfortran 8.5.0, it requires libgfortran.so.5
+
+# Check whether you have the dynamic library required
+# If "xxx: not found" or errors occur, you may need to download the libs
+ldd *
+
+# If you have libgfortran.so.5
+cp dockx_gfortran_so_5 /path/to/EMProt/emprot/bin/dockx
+# If you have libgfortran.so.3
+cp dockx_gfortran_so_3 /path/to/EMProt/emprot/bin/dockx
+
+# libgfortran.so.5 (along with gfortran-8) can be installed by conda
+conda install -c conda-forge gfortran_linux-64=8 
+
+# Or, to maintain the cleaness of EMProt env, you can create a new conda env and install it
+conda create -n fortran python=3.10
+conda install -c conda-forge gfortran_linux-64=8
+
+# Then add the lib dir to your LD_LIBRARY_PATH temporarily
+export LD_LIBRARY_PATH=/path/to/your/env/lib:$LD_LIBRARY_PATH
+
+# We dont recommend export LD_LIBRARY_PATH in your .bashrc
+# We recommend export it when you need it
+
