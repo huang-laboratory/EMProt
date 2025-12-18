@@ -173,9 +173,8 @@ def run_getp(map_dir, out_dir, lib_dir, pdb=None, res=6.0, thresh=20, nt=4, filt
 
     if verbose:
         print(f"# Running command {cmd}")
-    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
-    success = result.returncode == 0
-    return success
+    result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    return result
 
 
 def main(args):
@@ -225,7 +224,7 @@ def main(args):
     # Convert predicted map to points
     print("# Convert atom probability map to coords")
     fca = pjoin(out_dir, "raw_ca.pdb")
-    ca_success = run_getp(
+    result = run_getp(
         fcamap, 
         fca, 
         lib_dir=lib_dir, 
@@ -233,9 +232,14 @@ def main(args):
         **getp_args, verbose=True,
     )
 
-    if not ca_success:
-        print("Cannot convert camap")
- 
+    if not (result.returncode == 0):
+        print("# Cannot convert camap")
+        print("# Original stdout:")
+        print(result.stdout.strip())
+        print("# Original stderr:")
+        print(result.stderr.strip())
+        exit(1)
+
     te = time.time()
     #print("# Time consuming {:.4f}".format(te-ts))
 
