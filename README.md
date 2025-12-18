@@ -141,24 +141,23 @@ Also, this happens when you do not install emprot main program in the emprot env
 
 - **AssertionError: Egg-link /xxx/emprot.egg-link (to /xxx) does not match installed location of emprot (at /xxx)**: Fail to install EMProt. Solution: remove the `emprot` conda env, create the `emprot` env and install EMProt again.
 
-We provide some static-compiled binaries (which are compiled under CentOS 7 and Intel CPU) in the EMProt suite, but it does not always fit other platforms, so the following errors may occur. When EMProt fails, either use a new compiled program (with dynamic lib requirement) or compile it from source. Note that the new compiled programs requires some dynamic libs, use `ldd /path/to/EMProt/emprot/bin/recompiled/*` to find what is missing and install the missing libs.
+- We provide some static-compiled binaries (which are compiled under CentOS 7 and Intel CPU) in the EMProt suite, but it does not always fit other platforms, so the following errors may occur. When EMProt fails, either use a new compiled program (with dynamic lib requirement) or compile it from source. Note that the new compiled programs requires some dynamic libs, use `ldd /path/to/EMProt/emprot/bin/recompiled/*` to find what is missing and install the missing libs.
 
-- **Error: cannot convert ca probability map to points, segmentation fault ... **:
-    -  Use our newly compiled `getp` program (no static, no CPU specific instructions, g++ 4.8.5 with c++11):
+- **Error: cannot convert ca probability map to points, segmentation fault ...**
 ```
+# Use our newly compiled `getp` program (no static, no CPU specific instructions, g++ 4.8.5 with c++11)
 cp /path/to/EMProt/emprot/bin/recompiled/getp /path/to/EMProt/emprot/bin/getp
-```
-    -  Or, compile `getp` from source:
-```
+
+# Or, compile `getp` from source
 cd /path/to/EMProt/emprot/bin/srcs/getp
 make clean
 make
 cp getp /path/to/EMProt/emprot/bin/getp
 ```
 
-- **Error: dockx/domasgx run failed, segmentation fault ... **:
-    - Use our newly compiled `dockx` and `domasgx` program ( no static, no CPU specific instructions, gfortran 4.8.5 ):
+- **Error: dockx/domasgx run failed, segmentation fault ...**
 ```
+# Use our newly compiled `dockx` and `domasgx` program ( no static, no CPU specific instructions, gfortran 4.8.5 ):
 cp /path/to/EMProt/emprot/bin/recompiled/dockx  /path/to/EMProt/emprot/bin/dockx
 cp /path/to/EMProt/emprot/bin/recompiled/domasgx /path/to/EMProt/emprot/bin/domasgx
 ```
