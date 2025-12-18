@@ -103,13 +103,13 @@ cd 7UZE
 ```
 Then run EMProt
 ```
-emprot build --map 7UZE.mrc --seq 7UZE.fa --device 0 --ouput out_new
+emprot build --map 7UZE.mrc --seq 7UZE.fa --device 0 --output out_new
 ```
 
 #### 2. Modeling without target sequence(s)
 EMProt also supports modeling without sequence(s), using the same example, run EMProt with
 ```
-emprot build --map 7UZE.mrc --device 0 --ouput out_new_no_seq
+emprot build --map 7UZE.mrc --device 0 --output out_new_no_seq
 ```
 
 #### 3. Modeling with target sequence(s) and predicted model(s)
@@ -121,7 +121,7 @@ cd 8AVV
 ```
 Run EMProt with
 ```
-emprot build --map 8AVV.mrc --seq 8AVV.fa --chain 8AVV_A.pdb 8AVV_B.pdb --device 0 --ouput out_new
+emprot build --map 8AVV.mrc --seq 8AVV.fa --chain 8AVV_A.pdb 8AVV_B.pdb --device 0 --output out_new
 ```
 
 #### Post refinement
