@@ -76,9 +76,9 @@ Running EMProt is very straight forward with one command like
 ```
 emprot build --map MAP.mrc \
     --output OUT \
-	--device GPUID \ # default is 0
+        --device GPUID \ # default is 0
     [--seq SEQ.fa] \
-	[--chain T1.pdb T2.pdb T3.pdb ... ] # also supports mmcif
+        [--chain T1.pdb T2.pdb T3.pdb ... ] # also supports mmcif
 ```
 - Cryo-EM density map and output directory is **required**.
 - Sequence(s) and predicted models are **optional**.
@@ -141,13 +141,14 @@ Also, this happens when you do not install emprot main program in the emprot env
 
 - **AssertionError: Egg-link /xxx/emprot.egg-link (to /xxx) does not match installed location of emprot (at /xxx)**: Fail to install EMProt. Solution: remove the `emprot` conda env, create the `emprot` env and install EMProt again.
 
-We provide some static-compiled binaries (which are compiled under CentOS 7 and Intel CPU) in the EMProt suite, but it does not always fit other platforms, so the following errors may occur. When EMProt fails, either use a new compiled program(with dynamic libraries requirement) or compile it from source. 
-- **Error cannot convert ca probability map to points **: 
-    -  Use our newly compiled `getp` program, replace the /path/to/EMProt/emprot/bin/getp with /path/to/EMProt/emprot/recompiled/getp: 
+We provide some static-compiled binaries (which are compiled under CentOS 7 and Intel CPU) in the EMProt suite, but it does not always fit other platforms, so the following errors may occur. When EMProt fails, either use a new compiled program (with dynamic lib requirement) or compile it from source. Note that the new compiled programs requires some dynamic libs, use `ldd /path/to/EMProt/emprot/bin/recompiled/*` to find what is missing and install the missing libs.
+
+- **Error: cannot convert ca probability map to points, segmentation fault ... **:
+    -  Use our newly compiled `getp` program (no static, no CPU specific instructions, g++ 4.8.5 with c++11):
 ```
 cp /path/to/EMProt/emprot/bin/recompiled/getp /path/to/EMProt/emprot/bin/getp
 ```
-    -  Or, compile `getp` from source: 
+    -  Or, compile `getp` from source:
 ```
 cd /path/to/EMProt/emprot/bin/srcs/getp
 make clean
@@ -155,8 +156,8 @@ make
 cp getp /path/to/EMProt/emprot/bin/getp
 ```
 
-- **Error dockx/domasgx run failed **: 
-    - Use our newly compiled `dockx` and `domasgx` program:
+- **Error: dockx/domasgx run failed, segmentation fault ... **:
+    - Use our newly compiled `dockx` and `domasgx` program ( no static, no CPU specific instructions, gfortran 4.8.5 ):
 ```
 cp /path/to/EMProt/emprot/bin/recompiled/dockx  /path/to/EMProt/emprot/bin/dockx
 cp /path/to/EMProt/emprot/bin/recompiled/domasgx /path/to/EMProt/emprot/bin/domasgx
@@ -164,13 +165,14 @@ cp /path/to/EMProt/emprot/bin/recompiled/domasgx /path/to/EMProt/emprot/bin/doma
 
 
 ## Citation
-Tao Li, et al. Accurate protein modeling from cryo-EM maps using deep learning and structure prediction. *In submission*. 2025
+Tao Li, et al. EMProt improves structure determination from cryo-EM maps. *Nature Structural & Molecular Biology*. 2025
 ```
 @article {EMProt2025,
-	title = {Accurate protein modeling from cryo-EM maps using deep learning and structure prediction},
-	author = {Tao Li, Ji Chen, Hao Li, Hong Cao, Sheng-You Huang},
-	journal = {In submission},
-	year = {2025},
-	doi = {}
+        title = {EMProt improves structure determination from cryo-EM maps},
+        author = {Tao Li, Ji Chen, Hao Li, Hong Cao, Sheng-You Huang},
+        journal = {Nature Structural & Molecular Biology},
+        year = {2025},
+        doi = {}
 }
 ```
+
