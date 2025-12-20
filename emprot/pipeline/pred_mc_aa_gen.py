@@ -243,9 +243,9 @@ def main(args):
     print("# Specify model path to {}".format(dir_model))
 
     if not os.path.exists(pjoin(dir_model, "model_mc")):
-        raise Exception("Cannot find model weights for model_mc")
+        raise Exception("Cannot find model weights for model_mc, did you download the model weights and decompress it at the emprot directory?")
     if not os.path.exists(pjoin(dir_model, "model_aa")):
-        raise Exception("Cannot find model weights for model_aa")
+        raise Exception("Cannot find model weights for model_aa, did you download the model weights and decompress it at the emprot directory?")
 
     print("# Making directory {}".format(dir_out), flush=True)
     os.makedirs(dir_out, exist_ok=True)

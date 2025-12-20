@@ -68,12 +68,16 @@ def prepare_input(
                 print(f"# Running command {cmd}")
 
             # run and record pipe out
-            result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            all_pipe_out.extend( result.stdout.decode('utf-8').split('\n') )
+            result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            all_pipe_out.extend( result.stdout.split('\n') )
 
             if result.returncode != 0:
-                print("WARNING this command has run failed")
-                print("WARNING unexpected result may be observed")
+                print("# Error domasgx has run failed")
+                print("# Original stdout:")
+                print(result.stdout.strip())
+                print("# Original stderr:")
+                print(result.stderr.strip(), flush=True)
+                exit(1)
 
             # check exists
             exist = check_exists(out_temp_dir)
@@ -89,7 +93,7 @@ def prepare_input(
     # cat all chains
     writelines(out_dir, all_lines)
     if verbose:
-        print("Combine all marked chains into {}".format(out_dir))
+        print("# Combine all marked chains into {}".format(out_dir))
 
     # log anyway
     writelines(log_dir, all_pipe_out)
@@ -123,14 +127,18 @@ def postprocess_output(
         # run
         if verbose:
             print(f"# Running command {cmd}")
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         if result.returncode != 0:
-            print("WARNING this command has run failed")
-            print("WARNING unexpected result may be observed")
-            writelines(log_dir, result.stderr.decode('utf-8').split('\n') + ["success"])
+            print("# Error renumpdbx has run failed")
+            writelines(log_dir, result.stderr.split('\n'))
+            print("# Original stdout:")
+            print(result.stdout.strip())
+            print("# Original stderr:")
+            print(result.stderr.strip(), flush=True)
+            exit(1)
         else:
-            writelines(log_dir, result.stdout.decode('utf-8').split('\n') + ["success"])
+            writelines(log_dir, result.stdout.split('\n') + ["success"])
 
     return check_exists(out_dir)
 
@@ -191,14 +199,18 @@ def run_dock_and_refine(
 
         if verbose:
             print(f"# Running command {cmd}")
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         if result.returncode != 0:
-            print("WARNING this command has run failed")
-            print("WARNING unexpected result may be observed")
-            writelines(log_dir, result.stderr.decode('utf-8').split('\n'))
+            print("# Error dockx has run failed")
+            writelines(log_dir, result.stderr.split('\n'))
+            print("# Original stdout:")
+            print(result.stdout.strip())
+            print("# Original stderr:")
+            print(result.stderr.strip(), flush=True)
+            exit(1)
         else:
-            writelines(log_dir, result.stdout.decode('utf-8').split('\n'))
+            writelines(log_dir, result.stdout.split('\n'))
 
 
         # postprocess of atoms
