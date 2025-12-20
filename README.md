@@ -70,6 +70,8 @@ emprot build --help
 ```
 If no error is encontered, the installation is successful.
 
+## Notes
+EMProt contains some pre-compiled executables (static-compiled on CentOS 7 with Intel CPU). If EMProt fails with `segmentation fault` for some programs, use our new compiled programs at /path/to/EMProt/emprot/bin/recompiled. These programs require dynamic libs that are common on most Linux systems, e.g. libgfortran. See /path/to/EMProt/emprot/bin/recompiled/readme for detail. 
 
 ## Usage
 Running EMProt is very straight forward with one command like

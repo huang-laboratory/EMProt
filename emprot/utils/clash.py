@@ -16,12 +16,15 @@ def clash_ratio(a, b, r_clash=1.8):
     idxs_a_in_b = atree.query_ball_point(b, r=r_clash)
     idxs_b_in_a = btree.query_ball_point(a, r=r_clash)
 
-    idxs_a_in_b = np.concatenate(idxs_a_in_b, axis=0).astype(np.int32)
-    idxs_b_in_a = np.concatenate(idxs_b_in_a, axis=0).astype(np.int32)
+    if len(idxs_a_in_b) > 0:
+        idxs_a_in_b = np.concatenate(idxs_a_in_b, axis=0).astype(np.int32)
+        # del repeated
+        idxs_a_in_b = np.unique(idxs_a_in_b)
 
-    # del repeated
-    idxs_a_in_b = np.unique(idxs_a_in_b)
-    idxs_b_in_a = np.unique(idxs_b_in_a)
+    if len(idxs_b_in_a) > 0:
+        idxs_b_in_a = np.concatenate(idxs_b_in_a, axis=0).astype(np.int32)
+        # del repeated
+        idxs_b_in_a = np.unique(idxs_b_in_a)
 
     ra = len(idxs_a_in_b) / len(a)
     rb = len(idxs_b_in_a) / len(b)
@@ -41,21 +44,23 @@ def clash_flag(a, b, r_clash=1.8):
     atree = KDTree(a)
     btree = KDTree(b)
 
-    idxs_a_in_b = atree.query_ball_point(b, r=r_clash)
-    idxs_b_in_a = btree.query_ball_point(a, r=r_clash)
-
-    idxs_a_in_b = np.concatenate(idxs_a_in_b, axis=0).astype(np.int32)
-    idxs_b_in_a = np.concatenate(idxs_b_in_a, axis=0).astype(np.int32)
-
-    # del repeated
-    idxs_a_in_b = np.unique(idxs_a_in_b)
-    idxs_b_in_a = np.unique(idxs_b_in_a)
-
     ia = np.zeros(len(a), dtype=np.int32)
     ib = np.zeros(len(b), dtype=np.int32)
 
-    ia[idxs_a_in_b] = 1
-    ib[idxs_b_in_a] = 1
+    idxs_a_in_b = atree.query_ball_point(b, r=r_clash)
+    idxs_b_in_a = btree.query_ball_point(a, r=r_clash)
+
+    if len(idxs_a_in_b) > 0:
+        idxs_a_in_b = np.concatenate(idxs_a_in_b, axis=0).astype(np.int32)
+        # del repeated
+        idxs_a_in_b = np.unique(idxs_a_in_b)
+        ia[idxs_a_in_b] = 1
+
+    if len(idxs_b_in_a) > 0:
+        idxs_b_in_a = np.concatenate(idxs_b_in_a, axis=0).astype(np.int32)
+        # del repeated
+        idxs_b_in_a = np.unique(idxs_b_in_a)
+        ib[idxs_b_in_a] = 1
 
     return ia, ib
 
