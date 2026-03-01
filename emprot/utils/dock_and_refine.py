@@ -63,13 +63,38 @@ def prepare_input(
             # domasg input.pdb swd.out output.pdb
             out_temp_dir = pjoin(temp_dir, f"xxx_chain_{kk}.pdb")
 
-            cmd = lib_dir + "/bin/domasgx" + " {} {} {} -qs {} -ms {} -q {} -m {} -k {}".format(chains_pdb_dir[kk], sword_temp_dir, out_temp_dir, qs, ms, q, m, k)
+            input_base = f"chain_{kk}.pdb"
+
+            sword_base = os.path.basename(sword_temp_dir)
+            output_base = os.path.basename(out_temp_dir)
+
+            input_local = pjoin(temp_dir, input_base)
+            if not os.path.exists(input_local):
+                os.symlink(chains_pdb_dir[kk], input_local)
+
+
+
+            cmd = (
+                lib_dir + "/bin/domasgx"
+                + f" {input_base} {sword_base} {output_base}"
+                + f" -qs {qs} -ms {ms} -q {q} -m {m} -k {k}"
+            )
+
             if verbose:
                 print(f"# Running command {cmd}")
 
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                cwd=temp_dir,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True
+            )
+
             # run and record pipe out
-            result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            all_pipe_out.extend( result.stdout.split('\n') )
+            all_pipe_out.extend(result.stdout.split('\n'))
+
 
             if result.returncode != 0:
                 print("# Error domasgx has run failed")
@@ -190,16 +215,66 @@ def run_dock_and_refine(
 
         transform_dir = pjoin(temp_dir, "transform.pdb")
 
+        map_base = os.path.basename(map_dir)
+        pdb_base = os.path.basename(pdb_dir)
+        transform_base = os.path.basename(transform_dir)
+
+        # make local links (fast, no copy)
+        map_local = pjoin(temp_dir, map_base)
+        pdb_local = pjoin(temp_dir, pdb_base)
+
+        if not os.path.exists(map_local):
+            os.symlink(map_dir, map_local)
+        if not os.path.exists(pdb_local):
+            os.symlink(pdb_dir, pdb_local)
+
+
         # command
         if flex_refine and init_trans_dir is not None:
-            cmd = bin_dir + " {} {} {} {} -nt {} -thresh {} -angle_step {} -fgrid {} -sgrid {} -trans {}".format(map_dir, pdb_dir, resolution, transform_dir, nt, thresh, angle_step, fgrid, sgrid, init_trans_dir)
+            cmd = (
+                bin_dir +
+                " {} {} {} {} -nt {} -thresh {} -angle_step {} -fgrid {} -sgrid {} -trans {}".format(
+                    map_base,
+                    pdb_base,
+                    resolution,
+                    transform_base,
+                    nt,
+                    thresh,
+                    angle_step,
+                    fgrid,
+                    sgrid,
+                    init_trans_dir
+                )
+            )
         else:
-            cmd = bin_dir + " {} {} {} {} -nt {} -thresh {} -angle_step {} -fgrid {} -sgrid {}".format(map_dir, pdb_dir, resolution, transform_dir, nt, thresh, angle_step, fgrid, sgrid)
+            cmd = (
+                bin_dir +
+                " {} {} {} {} -nt {} -thresh {} -angle_step {} -fgrid {} -sgrid {}".format(
+                    map_base,
+                    pdb_base,
+                    resolution,
+                    transform_base,
+                    nt,
+                    thresh,
+                    angle_step,
+                    fgrid,
+                    sgrid
+                )
+            )
+
 
 
         if verbose:
             print(f"# Running command {cmd}")
-        result = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        result = subprocess.run(
+            cmd,
+            shell=True,
+            cwd=temp_dir,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
 
         if result.returncode != 0:
             print("# Error dockx has run failed")
@@ -497,4 +572,3 @@ def run_dock_score(
         **kwargs
     ):
     raise NotImplementedError
-
